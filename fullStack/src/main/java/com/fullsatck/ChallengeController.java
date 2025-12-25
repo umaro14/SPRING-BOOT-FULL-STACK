@@ -1,6 +1,5 @@
 package com.fullsatck;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,24 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ChallengeController {
 
-    private  List<Challenge> challenges = new ArrayList<>();
+    private ChallengeService challengeService;                                        //DI
 
-    public ChallengeController(){
-        Challenge challenge1 = new Challenge(1L, "January", "programming language🩷");
-        Challenge challenge2 = new Challenge(2L, "Feb", "Land a tech Job💻");
-        challenges.add(challenge1);
-        challenges.add(challenge2);
+    public ChallengeController(ChallengeService challengeService){
+      this.challengeService = challengeService;
     }
 
     @GetMapping("/challenges")
     public List<Challenge> getAllChallenges(){
-        return challenges;
+        return challengeService.getAllChallenges();
     }
 
     @PostMapping("/challenges")
     public String addChallenge(@RequestBody Challenge challenge){
-       challenges.add(challenge);
-       return "Challenge added successfully";
+       boolean isChallengeAdded = challengeService.addChallenge(challenge);
+       if(isChallengeAdded){
+             return "Challenge added successfully✅";
+       }
+       else {
+        return "There was an error adding the challenge❌";
+       }
+      
     }
     
 }
