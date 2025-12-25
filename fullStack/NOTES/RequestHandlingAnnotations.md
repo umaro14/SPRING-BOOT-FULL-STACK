@@ -59,3 +59,41 @@ public class Geeks{
 @DeleteMapping
 
 # NOTE: We can manually use GET, POST, PUT and DELETE annotations along with the path as well as we can use @RequestMapping annotation along with the method for all the above handler requests 
+
+# ✅ What is ResponseEntity in Spring Boot?
+
+ResponseEntity is a Spring class used to represent the entire HTTP response.
+
+It lets you control:
+
+✅ Response body
+
+✅ HTTP status code
+
+✅ HTTP headers
+
+# 📦 Definition (Simple)
+
+# ResponseEntity = HTTP response (body + status + headers)
+
+# 🧱 Without ResponseEntity:
+# @GetMapping("/hello")
+  public String hello() {
+    return "Hello";
+  }
+
+✅ Body = "Hello"
+❌ Status = always 200 OK
+❌ No control over headers
+
+# THE STATUS WILL ALWAYS BE OK EVEN IF THE BODY IS NOT CORRECT
+
+# 🧱 With ResponseEntity:
+# @GetMapping("/hello")
+  public ResponseEntity<String> hello() {
+    return ResponseEntity.ok("Hello");
+  }
+
+✅ Body = "Hello"
+✅ Status = 200 OK
+✅ Full control
